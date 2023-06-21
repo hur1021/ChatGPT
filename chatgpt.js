@@ -9,15 +9,23 @@ const endpoint = 'https://api.openai.com/v1/chat/completions';
 
 // Define a function to send a chat message
 async function sendMessage(message) {
+  const config = {
+    headers:{
+      "Authorization": "Bearer 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"
+    }
+  }
+
+  const data={
+    "model": "gpt-3.5-turbo",
+    "messages": [
+    {
+      "role": "user",
+      "content": "What is OpenAPI?"
+    }
+]}
+
   try {
-    const response = await axios.post(endpoint, {
-      "model": "gpt-3.5-turbo",
-      "messages": [
-      {
-        "role": "user",
-        "content": "What is OpenAPI?"
-      }
-  ]});
+    const response = await axios.post(endpoint,data,config );
 
     // Process the response
     const reply = response.data.choices[0].message.content;
